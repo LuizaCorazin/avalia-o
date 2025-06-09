@@ -1,134 +1,250 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
-struct CD
-{
-    char genero[20], banda[20];
-    int ano, qtd, id;
-    float vl;
+
+struct CD{
+    
+    char banda[50];
+    int estoque, ano, genero, id;
+    float preco;
+    
 };
 
-struct CD cds[20];
-
-int nomecd = 0;
-
-void cadastrar();
-void vender();
-void filtrar();
-void consultar();
+int num=0;
+struct CD cd[100];
+void Cadastrar();
+void Pesquisar();
+void Vender();
+void Consultar();
 
 int main(){
+    
     int opcao;
+    
     do{
-        system("cls");
-        printf("------ Som & Arte ------\n");
-        printf("[ 1 ] - Cadastrar CD\n");
-        printf("[ 2 ] - Vender CD\n");
-        printf("[ 3 ] - Filtrar por banda\n");
-        printf("[ 4 ] - Consultar estoque\n");
-        printf("[ 0 ] - Sair\n");
-        printf("Digite sua opcao: ");
-        scanf("%d",&opcao);
-        system("cls");
-
-        switch (opcao)
-        {
+    printf("\033[34m");
+    printf("------ Som & Arte ------\n");
+     printf("\033[0m");
+    printf("1 - Cadastrar CD\n");
+    printf("2 - Pesquisar\n");
+    printf("3 - Consultar\n");
+    printf("4 - Vender\n");
+    printf("0 - Sair\n");
+    printf("Selecione uma opção: ");
+    scanf("%d", &opcao);
+    getchar();
+    system("clear");
+    switch(opcao){
         case 1:
-            cadastrar();
-            break;
+           Cadastrar();
+           break;
+        
         case 2:
-            vender();
-            break;
+           Pesquisar();
+           break;
+           
         case 3:
-            filtrar();
-            break;
+           Consultar();
+           break;
+           
         case 4:
-            consultar();
-            break;
+           Vender();
+           break;
+           
         case 0:
-            printf("Fechando sistema...\n");
-            break;
+           printf("Volte sempre!!");
+           break;
+        
         default:
-            printf("Opcao invalida!\n");
-            break;
-        }
-        printf("\nPressione ENTER para continuar\n");
-        getchar();
-        getchar();
-    }while (opcao!=0);
+           printf("Opção invalida!!");
+           break;
+    }
+    
+    printf("\033[34m");
+    printf("Clique enter para continuar...\n");
+    printf("\033[0m");
+    getchar();
+    getchar();
+    system("clear");
+    
+    }while(opcao!=0);
+    
     return 0;
 }
-void cadastrar(){
-    printf("Digite o genero do CD:\n");
-    scanf("%s",cds[nomecd].genero);
-    printf("Digite a banda do CD:\n");
-    scanf("%s",cds[nomecd].banda);
-    printf("Digite o ano do CD:\n");
-    scanf("%d",&cds[nomecd].ano);
-    printf("Digite a quantidade de copias que serao cadastradas:\n");
-    scanf("%d",&cds[nomecd].qtd);
-    printf("Digite o valor de cada copia:\n");
-    scanf("%f",&cds[nomecd].vl);
-    printf("CD cadastrado no ID: %d!\n",nomecd);
-    cds[nomecd].id = nomecd;
-    nomecd++;
+
+void Cadastrar(){
+    
+    printf("\033[34m");
+    printf("------ Cadastro ------\n");
+    printf("\033[0m");
+    printf("Banda: ");
+    scanf(" %[^\n]", cd[num].banda);
+    printf("Genêro: ");
+    scanf(" %d", &cd[num].genero);
+    printf("Ano: ");
+    scanf("%d", &cd[num].ano);
+    printf("Preço: ");
+    scanf("%f", &cd[num].preco);
+    printf("Quantidade em estoque: ");
+    scanf("%d", &cd[num].estoque);
+    cd[num].id= num;
+    printf("\033[31m");
+    printf("ID: %d\n", cd[num].id);
+    printf("\033[0m");
+    num++;
 }
-void vender(){
-    int id, qtd;
-    printf("Digite o ID do CD que deseja vender:\n");
-    scanf("%d",&id);
-    for(int i=0;i<nomecd;i++){
-        if(id==cds[i].id){
-            printf("Digite a quantidade que deseja vender:\n");
-            scanf("%d",&qtd);
-            if(qtd<=cds[i].qtd){
-                cds[i].qtd-=qtd;
-                printf("CD(s) vendidos!\n");
-                printf("Banda do CD: %s\n",cds[i].banda);
-                printf("Genero do CD: %s\n",cds[i].genero);
-                printf("Ano do CD: %d\n",cds[i].ano);
-                printf("Quantidade vendida: %d\n",qtd);
-                printf("Valor da unidade: %.2f\n",cds[i].vl);
-                printf("Valor total da venda: %.2f\n",cds[i].vl*qtd);
-                printf("Copias restantes em estoque: %d\n",cds[i].qtd);
-            }else{
-                printf("Nao e possivel vender essa quantidade de copias!\n");
-                printf("Copias restantes: %d\n",cds[i].qtd);
+
+void Pesquisar(){
+    
+
+    int genero, encontrar=0;
+    
+    if(num==1){
+        printf("\033[35m");
+        printf("------ Pesquisar ------\n");
+        printf("\033[0m");
+        printf("Genêro: ");
+        printf("1 - Pop\n");
+        printf("2 - Rock\n");
+        printf("3 - Hip hop\n");
+        printf("4 - Funk\n");
+        printf("5 - Sertanejo\n");
+        printf("6 - Mpb\n");
+        printf("7 - Rap\n");
+        printf("8 - Reggae\n");
+        printf("Selecione uma opção: ");
+        scanf(" %d", &genero);
+        for(int i=0; i<num; i++){
+            if(genero==cd[i].genero){
+                printf("Banda: %s\n", cd[i].banda);
+                printf("Genêro: %d\n", cd[i].genero);
+                printf("Ano: %d\n", cd[i].ano);
+                printf("Preço: %.2f\n", cd[i].preco);
+                printf("ID: %d\n", cd[num].id);
+                printf("Quantidade em estoque: %d\n", cd[i].estoque);
+                printf("\033[37m");
+                printf("\033[45m");
+                printf("------------------------------\n");
+                printf("\033[0m");
+                printf("\033[0m");
+                encontrar=1;
             }
-            return;
+            else if(encontrar==0){
+                printf("Nenhum cd encontrado!!\n");
+            }
         }
     }
-    printf("CD nao encontrado!\n");
-}
-void filtrar(){
-    char banda[20];
-    int count=0;
-    printf("Digite a banda que deseja usar para filtrar:\n");
-    scanf("%s",banda);
-    for(int i=0;i<nomecd;i++){
-        if(strcmp(banda,cds[i].banda)==0){
-            printf("Genero do CD: %s\n",cds[i].genero);
-            printf("Ano do CD: %d\n",cds[i].ano);
-            printf("Valor da unidade: %.2f\n",cds[i].vl);
-            printf("Copias restantes em estoque: %d\n",cds[i].qtd);
-            count=1;
-        }
-    }
-    if(count==0){
-        printf("Nenhum CD dessa banda encontrado!\n");
+    else{
+        printf("Nenhum CD cadastrado!!\n");
     }
 }
-void consultar(){
-    int id;
-    printf("Digite o ID do CD que deseja vender:\n");
-    scanf("%d",&id);
-    for(int i=0;i<nomecd;i++){
-        if(id==cds[i].id){
-            printf("CD encontrado no estoque!\n");
-            printf("Copias restantes em estoque: %d\n",cds[i].qtd);
-            return;
+
+void Consultar(){
+    
+    int  id, encontrar=0;
+    
+    
+    if(num==1){
+    printf("\033[34m");
+    printf("------ Consultar ------\n");
+    printf("\033[0m");
+    printf("Preenha as informações do produto que deseja:\n");
+    printf("ID: ");
+    scanf("%d", &id);
+    getchar();
+    system("clear");
+    for(int i=0; i<num; i++){
+        if(id==cd[i].id){
+            printf("\033[34m");
+            printf("------ Consultar ------\n");
+            printf("\033[0m");
+            printf("Banda: %s\n", cd[i].banda);
+            printf("Genêro: %d\n", cd[i].genero);
+            printf("Ano: %d\n", cd[i].ano);
+            printf("Preço: %.2f\n", cd[i].preco);
+            printf("ID: %d\n", cd[num].id);
+            if(cd[i].estoque>0){
+                printf("\033[32m");
+                printf("Quantidade em estoque: %d\n", cd[i].estoque);
+            }
+            else{
+                printf("\033[31m");
+                printf("Quantidade em estoque: %d\n", cd[i].estoque);
+            }
+        
+            encontrar=1;
+        }
+        else if(encontrar==0){
+            printf("CD não encontrado!!\n");
         }
     }
-    printf("CD nao encontrado!\n");
+}
+}
+
+void Vender(){
+    
+    int quantidade, opcao, id, i, encontrar=0;
+    
+    if(num==1){
+    printf("\033[34m");
+    printf("------ Venda ------\n");
+    printf("\033[0m");
+    printf("Preenha as informações do produto que deseja:\n");
+    printf("ID: ");
+    scanf("%d", &id);
+    getchar();
+    system("clear");
+    
+    for(i=0; i<num; i++){
+        if(id==cd[i].id){
+            
+            printf("\033[34m");
+            printf("------ Venda ------\n");
+            printf("\033[0m");
+            
+            printf("Banda: %s\n", cd[i].banda);
+            printf("Genêro: %d\n", cd[i].genero);
+            printf("Ano: %d\n", cd[i].ano);
+            printf("Preço: %.2f\n", cd[i].preco);
+            printf("Quantidade em estoque: %d\n", cd[i].estoque);
+            printf("ID: %d\n", cd[num].id);
+            printf("Digite a quantidade que deseja comprar: ");
+            scanf("%d", &quantidade);
+            getchar();
+            system ("clear");
+            printf("Quantidade: %d\n", quantidade);
+            printf("\033[34m");
+            printf("Total: R$%.2f\n", quantidade*cd[i].preco);
+            printf("\033[0m");
+            printf("\nDeseja confirmar a compra? (1 - Sim / 2 - Não\n");
+            scanf("%d", &opcao);
+            getchar();
+            system ("clear");
+            switch(opcao){
+                case 1:
+                   printf("Compra confirmada!!\n");
+                   cd[i].estoque = cd[i].estoque - quantidade;
+                   break;
+        
+                case 2:
+                   printf("Compra cancelada!!\n");
+                   break;
+         
+                default:
+                   printf("Opção invalida!!\n");
+            
+            encontrar=1;
+        }
+        
+        }
+        else if(encontrar==0){
+            printf("Nennhum cd encontrado!!\n");
+        }
+    }
+    
+    }
+
+    else{
+        printf("Nenhum produto cadastrado!!\n");
+    }
 }
