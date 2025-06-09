@@ -27,7 +27,7 @@ int main() {
 
     do {
         printf("\033[35m");
-        printf("-- Pizzaria Nostra Pizza --\n");
+        printf("--- 🍕 Pizzaria Nostra Pizza 🍕 ---\n");
         printf("\033[0m");
         
         printf("1-- Cadastro da Pizza \n");
@@ -76,7 +76,7 @@ int main() {
 
 void cadastrarpizza() {
     printf("\033[35m");
-    printf("--Cadastre a pizza--\n");
+    printf("🍕🍕 ---Cadastre a pizza---🍕🍕\n");
 
     printf("Digite o nome da pizza: ");
     scanf(" %[^\n]", pizzas[numpizza].nome);
